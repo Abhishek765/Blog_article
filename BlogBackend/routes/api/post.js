@@ -23,6 +23,17 @@ router.get(
     }
 );
 
+router.get('/home', (req, res) => {
+
+    Post.find(req.posts)
+        .then(posts => res.status(200).json(posts))
+        .catch(err =>
+            res
+                .status(400)
+                .json({ user: "Error fetching posts of logged in user" })
+        );
+})
+
 router.get("/post/:id", (req, res) => {
     Post.find({ _id: req.params.id })
         .then(post => res.status(200).json(post))
